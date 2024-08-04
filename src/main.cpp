@@ -77,6 +77,6 @@ MOD_EXTERN_FUNC void late_load() noexcept {
   il2cpp_functions::Init();
 
   PaperLogger.info("Installing hooks...");
-  INSTALL_HOOK(getLogger(), m_DidActivate);
+  INSTALL_HOOK(m_DidActivate);
   PaperLogger.info("Installed all hooks!");
 }
