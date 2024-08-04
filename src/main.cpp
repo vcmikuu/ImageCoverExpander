@@ -45,28 +45,26 @@ MAKE_HOOK_MATCH(m_DidActivate,
     imageView->set_preserveAspect(false);
 }
 
+#pragma region Mod setup
+/// @brief Called at the early stages of game loading
+/// @param info
+/// @return
+MOD_EXPORT_FUNC void setup(CModInfo& info) {
+    info.id = MOD_ID;
+    info.version = VERSION;
 
-extern "C" __attribute__((visibility("default"))) void setup(CModInfo* info)
-{
-    info->version = VERSION;
-    info->id = MOD_ID;
-    info->version_long = 0;
-    modInfo.assign(*info);
-
-    // Init things
-    getModConfig().Init(modInfo);
-    getLogger().info("Completed setup!");
+    Logger.info("Completed setup!");
 }
 
-// Called later on in the game loading - a good time to install function hooks
-extern "C" __attribute__((visibility("default"))) void late_load()
-{
+/// @brief Called later on in the game loading - a good time to install function hooks
+/// @return
+MOD_EXPORT_FUNC void late_load() {
     il2cpp_functions::Init();
 
+    Logger.info("Installing hooks...");
 
-    auto logger = Paper::ConstLoggerContext("imagecoverexpander");
-    // Install Hooks
-    getLogger().info("Installing hooks...");
-    INSTALL_HOOK(logger, m_DidActivate);
-    getLogger().info("Installed all hooks!");
+    INSTALL_HOOK(Logger, m_DidActivate);
+
+    Logger.info("Installed all hooks!");
 }
+#pragma endregion
