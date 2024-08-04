@@ -54,6 +54,7 @@ extern "C" __attribute__((visibility("default"))) void setup(CModInfo* info)
     modInfo.assign(*info);
 
     // Init things
+    getConfig().Init(modInfo);
     getLogger().info("Completed setup!");
 }
 
