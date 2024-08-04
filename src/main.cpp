@@ -76,7 +76,9 @@ MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
 MOD_EXTERN_FUNC void late_load() noexcept {
   il2cpp_functions::Init();
 
+  auto logger = Paper::ConstLoggerContext("imagecoverexpander");
+
   PaperLogger.info("Installing hooks...");
-  INSTALL_HOOK(m_DidActivate);
+  INSTALL_HOOK(logger, m_DidActivate);
   PaperLogger.info("Installed all hooks!");
 }
