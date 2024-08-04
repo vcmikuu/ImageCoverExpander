@@ -36,6 +36,11 @@ Configuration &getConfig() {
   return config;
 }
 
+Logger& getLogger() {
+    static Logger* logger = new Logger(modInfo);
+    return *logger;
+}
+
 MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
                 void,
@@ -66,10 +71,8 @@ MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
 
   getConfig().Load();
 
-  // File logging
-  Paper::Logger::RegisterFileContextId(PaperLogger.tag);
 
-  PaperLogger.info("Completed setup!");
+  getLogger().info("Completed setup!");
 }
 
 // Called later on in the game loading - a good time to install function hooks
@@ -78,7 +81,7 @@ MOD_EXTERN_FUNC void late_load() noexcept {
 
   auto logger = Paper::ConstLoggerContext("imagecoverexpander");
 
-  PaperLogger.info("Installing hooks...");
+  getLogger().info("Installing hooks...");
   INSTALL_HOOK(logger, m_DidActivate);
-  PaperLogger.info("Installed all hooks!");
+  getLogger().info("Installed all hooks!");
 }
