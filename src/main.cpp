@@ -36,10 +36,6 @@ Configuration &getConfig() {
   return config;
 }
 
-Logger& getLogger() {
-    static Logger* logger = new Logger(modInfo);
-    return *logger;
-}
 
 MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
