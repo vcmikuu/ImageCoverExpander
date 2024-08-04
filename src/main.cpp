@@ -57,26 +57,27 @@ MAKE_HOOK_MATCH(m_DidActivate,
 }
 
 
-// Called at the early stages of game loading
-MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
-  info->version = VERSION;
-  info->id = MOD_ID;
-  info->version_long = 0;
-  modInfo.assign(*info);
+extern "C" __attribute__((visibility("default"))) void setup(CModInfo* info)
+{
+    info->version = VERSION;
+    info->id = MOD_ID;
+    info->version_long = 0;
+    modInfo.assign(*info);
 
-  getConfig().Load();
-
-
-  getLogger().info("Completed setup!");
+    // Init things
+    getModConfig().Init(modInfo);
+    getLogger().info("Completed setup!");
 }
 
 // Called later on in the game loading - a good time to install function hooks
-MOD_EXTERN_FUNC void late_load() noexcept {
-  il2cpp_functions::Init();
+extern "C" __attribute__((visibility("default"))) void late_load()
+{
+    il2cpp_functions::Init();
 
-  auto logger = Paper::ConstLoggerContext("imagecoverexpander");
 
-  getLogger().info("Installing hooks...");
-  INSTALL_HOOK(logger, m_DidActivate);
-  getLogger().info("Installed all hooks!");
+    auto logger = Paper::ConstLoggerContext("imagecoverexpander");
+    // Install Hooks
+    getLogger().info("Installing hooks...");
+    INSTALL_HOOK(logger, m_DidActivate);
+    getLogger().info("Installed all hooks!");
 }
