@@ -43,7 +43,7 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
     imageView->set_color(Color(0.5, 0.5, 0.5, 1));
     imageView->set_preserveAspect(false);
-    imageView->skew;
+    imageView_skew(0.0);
     imageView->__Refresh();
 }
 
