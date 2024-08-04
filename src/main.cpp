@@ -21,10 +21,6 @@ using namespace UnityEngine::UI;
 #include "HMUI/ImageView.hpp"
 using namespace HMUI;
 
-
-
-
-static modloader::ModInfo modInfo{MOD_ID, VERSION, 0};
 // Stores the ID and version of our mod, and is sent to
 // the modloader upon startup
 
@@ -63,7 +59,10 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
 // Called at the early stages of game loading
 MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
-  *info = modInfo.to_c();
+  info->version = VERSION;
+  info->id = MOD_ID;
+  info->version_long = 0;
+  modInfo.assign(*info);
 
   getConfig().Load();
 
