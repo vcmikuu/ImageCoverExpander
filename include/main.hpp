@@ -12,13 +12,8 @@
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 #include "beatsaber-hook/shared/utils/logging.hpp"
 
-
-#include "paper/shared/logger.hpp"
-
 #include "_config.hpp"
 
 // Define these functions here so that we can easily read configuration and
 // log information from other files
 Configuration &getConfig();
-
-constexpr auto PaperLogger = Paper::ConstLoggerContext("imagecoverexpander");
