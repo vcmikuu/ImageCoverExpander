@@ -1,4 +1,4 @@
-name: NDK build
+name: DEV build
 
 on:
   workflow_dispatch:
