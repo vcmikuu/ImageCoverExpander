@@ -77,7 +77,7 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
 MOD_EXPORT_FUNC void setup(CModInfo& info) {
     info.id = MOD_ID;
     info.version = VERSION;
-    modInfo.assign(*info);
+    modInfo.assign(info);
     getModConfig().Init(modInfo);
     Logger.info("Completed setup!");
 }
