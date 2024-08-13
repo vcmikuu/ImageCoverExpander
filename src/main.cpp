@@ -21,6 +21,16 @@ using namespace UnityEngine::UI;
 #include "HMUI/ImageView.hpp"
 using namespace HMUI;
 
+MAKE_HOOK_MATCH(UpdateValue, void) {
+    if(getModConfig().Active.GetValue()){
+        Logger.info("ImageCoverExpander Set Value True");
+        getModConfig().Active.SetValue(true);
+    } else{
+        Logger.info("ImageCoverExpander Set Value False");
+        getModConfig().Active.SetValue(false);
+    }
+};
+
 
 MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
@@ -49,10 +59,11 @@ MAKE_HOOK_MATCH(m_DidActivate,
         imageView->__Refresh();
     } else{
         Logger.info("ImageCoverExpander Found Value Set As False, skipping expanding Image");
-        return;
     }
 
 }
+
+
 
 void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
     if(firstActivation){
@@ -63,13 +74,11 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
         auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
         
         // Add Options
-        AddConfigValueToggle(container->get_transform(), getModConfig().Active,
-        [](bool value) { 
-            Logger.info("ImageCoverExpander Set Value");
-            getModConfig().Active.SetValue(value);
-        });
+        AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+
     }
 }
+
 
 #pragma region Mod setup
 /// @brief Called at the early stages of game loading
@@ -93,6 +102,7 @@ MOD_EXPORT_FUNC void late_load() {
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);
+    INSTALL_HOOK(Logger, UpdateValue);
 
     Logger.info("Installed all hooks!");
 }
