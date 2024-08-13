@@ -12,7 +12,13 @@
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 #include "beatsaber-hook/shared/utils/logging.hpp"
 
+#include "HMUI/ViewController.hpp"
+#include "HMUI/Touchable.hpp"
+#include "bsml/shared/BSML.hpp"
+
 #include "config.hpp"
+
+void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling);
 
 /// @brief Stores the ID and version of our mod, and is sent to the modloader upon startup
 modloader::ModInfo modInfo{MOD_ID, VERSION, 0};
