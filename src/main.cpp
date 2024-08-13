@@ -33,18 +33,36 @@ MAKE_HOOK_MATCH(m_DidActivate,
     m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
 
 
-    auto* imageCoverTransform = self->get_transform()->Find("LevelDetail/LevelBarBig/SongArtwork")->GetComponent<RectTransform*>();
+    if(getModConfig().Active.GetValue()){
+        return;
+    } else{
+        auto* imageCoverTransform = self->get_transform()->Find("LevelDetail/LevelBarBig/SongArtwork")->GetComponent<RectTransform*>();
 
-    imageCoverTransform->set_sizeDelta(Vector2(70.5, 58.0));
-    imageCoverTransform->set_localPosition(Vector3(-34.4, -56, 0));
-    imageCoverTransform->SetAsFirstSibling();
+        imageCoverTransform->set_sizeDelta(Vector2(70.5, 58.0));
+        imageCoverTransform->set_localPosition(Vector3(-34.4, -56, 0));
+        imageCoverTransform->SetAsFirstSibling();
 
-    auto* imageView = imageCoverTransform->GetComponent<ImageView*>();
+        auto* imageView = imageCoverTransform->GetComponent<ImageView*>();
 
-    imageView->set_color(Color(0.5, 0.5, 0.5, 1));
-    imageView->set_preserveAspect(false);
-    imageView->_skew = 0.0f;
-    imageView->__Refresh();
+        imageView->set_color(Color(0.5, 0.5, 0.5, 1));
+        imageView->set_preserveAspect(false);
+        imageView->_skew = 0.0f;
+        imageView->__Refresh();
+    }
+
+}
+
+void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
+    if(firstActivation){
+        // Make Touchable
+        self->get_gameObject()->AddComponent<HMUI::Touchable*>();
+
+        // Create Container
+        auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
+        
+        // Add Options
+        AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+    }
 }
 
 #pragma region Mod setup
@@ -62,7 +80,10 @@ MOD_EXPORT_FUNC void setup(CModInfo& info) {
 /// @return
 MOD_EXPORT_FUNC void late_load() {
     il2cpp_functions::Init();
+    getModConfig().Init(modInfo);
+    BSML::Init();
 
+    BSML::Register::RegisterMainMenu("ImageCoverExpander", "ImageCoverExpander", "Hide/Show Bigger Image Cover Art", DidActivate);
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);
