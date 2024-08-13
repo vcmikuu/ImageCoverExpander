@@ -34,8 +34,6 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
 
     if(getModConfig().Active.GetValue()){
-        return;
-    } else{
         auto* imageCoverTransform = self->get_transform()->Find("LevelDetail/LevelBarBig/SongArtwork")->GetComponent<RectTransform*>();
 
         imageCoverTransform->set_sizeDelta(Vector2(70.5, 58.0));
@@ -48,6 +46,8 @@ MAKE_HOOK_MATCH(m_DidActivate,
         imageView->set_preserveAspect(false);
         imageView->_skew = 0.0f;
         imageView->__Refresh();
+    } else{
+        return;
     }
 
 }
