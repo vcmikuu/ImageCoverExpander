@@ -21,16 +21,6 @@ using namespace UnityEngine::UI;
 #include "HMUI/ImageView.hpp"
 using namespace HMUI;
 
-MAKE_HOOK_MATCH(UpdateValue, void) {
-    if(getModConfig().Active.GetValue()){
-        Logger.info("ImageCoverExpander Set Value True");
-        getModConfig().Active.SetValue(true);
-    } else{
-        Logger.info("ImageCoverExpander Set Value False");
-        getModConfig().Active.SetValue(false);
-    }
-};
-
 
 MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
@@ -42,6 +32,13 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
     m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
 
+    if(getModConfig().Active.GetValue()){
+        Logger.info("ImageCoverExpander Set Value True");
+        getModConfig().Active.SetValue(true);
+    } else{
+        Logger.info("ImageCoverExpander Set Value False");
+        getModConfig().Active.SetValue(false);
+    }
 
     if(getModConfig().Active.GetValue()){
         Logger.info("ImageCoverExpander Found Value Set As True, expanding Image");
@@ -102,7 +99,6 @@ MOD_EXPORT_FUNC void late_load() {
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);
-    INSTALL_HOOK(Logger, UpdateValue);
 
     Logger.info("Installed all hooks!");
 }
