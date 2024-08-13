@@ -34,6 +34,7 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
 
     if(getModConfig().Active.GetValue()){
+        Logger.info("ImageCoverExpander Found Value Set As True, expanding Image");
         auto* imageCoverTransform = self->get_transform()->Find("LevelDetail/LevelBarBig/SongArtwork")->GetComponent<RectTransform*>();
 
         imageCoverTransform->set_sizeDelta(Vector2(70.5, 58.0));
@@ -47,6 +48,7 @@ MAKE_HOOK_MATCH(m_DidActivate,
         imageView->_skew = 0.0f;
         imageView->__Refresh();
     } else{
+        Logger.info("ImageCoverExpander Found Value Set As False, skipping expanding Image");
         return;
     }
 
@@ -61,7 +63,11 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
         auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
         
         // Add Options
-        AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+        AddConfigValueToggle(container->get_transform(), getModConfig().Active,
+        [](bool value) { 
+            Logger.info("ImageCoverExpander Set Value");
+            getModConfig().Active.SetValue(value);
+        });
     }
 }
 
