@@ -1,6 +1,8 @@
 # ImageCoverExpander
 Expands the Cover Image to the full right side of the song select menu!
 
+![image](https://github.com/user-attachments/assets/b2534fc0-326b-4579-aa23-5c17c8b14fa8)
+
 ## Credits
 
 * [Raine](https://github.com/raineio) and [Millzy](https://github.com/MillzyDev) - Original creator's for this Quest Port.
