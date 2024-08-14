@@ -66,11 +66,7 @@
     {
       "id": "beatsaber-hook",
       "versionRange": "^5.1.9",
-      "additionalData": {
-        "extraFiles": [
-          "src/inline-hook"
-        ]
-      }
+      "additionalData": {}
     },
     {
       "id": "bsml",
