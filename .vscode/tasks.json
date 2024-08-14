@@ -41,10 +41,7 @@
             "detail": "Builds the library",
             "type": "shell",
             "command": "./scripts/build.ps1",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "options": {
                 "env": {}
             },
@@ -75,13 +72,13 @@
             "label": "Start Logging",
             "detail": "Begin logging from the Quest to the console",
             "type": "shell",
-            "command": "./scripts/start-logging.ps1",
+            "command": "./scripts/start-logging.ps1"
         },
         {
             "label": "Start logging to file",
             "detail": "Begin logging from the Quest to the console and saving output to a file 'logcat.log'",
             "type": "shell",
-            "command": "./scripts/start-logging.ps1 --file",
+            "command": "./scripts/start-logging.ps1 --file"
         },
         {
             "label": "Build QMOD",
@@ -89,7 +86,10 @@
             "type": "shell",
             "command": "./scripts/build.ps1 && ./scripts/createqmod.ps1",
             "args": [],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "options": {
                 "env": {}
             },

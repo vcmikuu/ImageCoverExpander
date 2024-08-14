@@ -40,13 +40,7 @@
         "tomb": [
           "pwsh ./scripts/pull-tombstone.ps1"
         ]
-      },
-      "qmodIncludeDirs": [
-        "./build",
-        "./extern/libs"
-      ],
-      "qmodIncludeFiles": [],
-      "qmodOutput": "./ImageCoverExpander.qmod"
+      }
     },
     "dependencies": [
       {

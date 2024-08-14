@@ -91,7 +91,7 @@ MOD_EXPORT_FUNC void late_load() {
     getModConfig().Init(modInfo);
     BSML::Init();
 
-    BSML::Register::RegisterMainMenu("ImageCoverExpander", "ImageCoverExpander", "Hide/Show Bigger Image Cover Art", DidActivate);
+    BSML::Register::RegisterSettingsMenu("CoverExpander", DidActivate, false);
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);
