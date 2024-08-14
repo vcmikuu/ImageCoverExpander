@@ -26,7 +26,7 @@ MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
                 void,
                 GlobalNamespace::StandardLevelDetailViewController* self,
-                bool firstActivation,
+                // bool firstActivation,
                 bool addedToHeirarchy,
                 bool screenSystemEnabling) {
 
@@ -58,13 +58,15 @@ MAKE_HOOK_MATCH(m_DidActivate,
 void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
     if(firstActivation){
         // Make Touchable
-        self->get_gameObject()->AddComponent<HMUI::Touchable*>();
+        // self->get_gameObject()->AddComponent<HMUI::Touchable*>();
+        UnityW<GameObject> container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
 
         // Create Container
-        auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
-        
-        // Add Options
-        AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+        // auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
+        if (firstActivation) {
+            // Add Options
+            AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+        }
 
     }
 }
