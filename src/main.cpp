@@ -26,12 +26,11 @@ MAKE_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
                 void,
                 GlobalNamespace::StandardLevelDetailViewController* self,
-                // bool firstActivation,
+                bool firstActivation,
                 bool addedToHeirarchy,
                 bool screenSystemEnabling) {
 
-    m_DidActivate(self, addedToHeirarchy, screenSystemEnabling);
-    //firstActivation, 
+    m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
 
 
     if(getModConfig().Active.GetValue()){
