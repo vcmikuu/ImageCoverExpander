@@ -30,7 +30,8 @@ MAKE_HOOK_MATCH(m_DidActivate,
                 bool addedToHeirarchy,
                 bool screenSystemEnabling) {
 
-    m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
+    m_DidActivate(self, addedToHeirarchy, screenSystemEnabling);
+    //firstActivation, 
 
 
     if(getModConfig().Active.GetValue()){
