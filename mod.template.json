@@ -3,7 +3,7 @@
   "_QPVersion": "0.1.1",
   "name": "${mod_name}",
   "id": "${mod_id}",
-  "coverImage:": "cover.jpg",
+  "coverImage": "cover.jpg",
   "author": "laynia",
   "version": "0.1.1",
   "packageId": "com.beatgames.beatsaber",
