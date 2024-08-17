@@ -1,6 +1,8 @@
 # ImageCoverExpander
 Expands the Cover Image to the full right side of the song select menu!
 
+![GitHub Downloads (specific asset, all releases)](https://img.shields.io/github/downloads/vcmikuu/ImageCoverExpander/ImageCoverExpander0.1.1.qmod)
+
 ![image](https://github.com/user-attachments/assets/b2534fc0-326b-4579-aa23-5c17c8b14fa8)
 
 ## Credits
