@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.22)
 
+add_compile_options(-DHotReload)
+
+cmake_minimum_required(VERSION 3.21)
+project(${COMPILE_ID})
+include(${EXTERN_DIR}/includes/kaleb/shared/cmake/assets.cmake)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 option(QUEST "Build for quest" ON)
 
 # Globals
@@ -15,13 +23,7 @@ add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
 add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC)
 
-add_compile_options(-DHotReload)
 
-cmake_minimum_required(VERSION 3.21)
-project(${COMPILE_ID})
-include(${EXTERN_DIR}/includes/kaleb/shared/cmake/assets.cmake)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 # Include. Include order matters!
