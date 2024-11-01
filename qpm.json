@@ -70,7 +70,12 @@
     },
     {
       "id": "bsml",
-      "versionRange": "^0.4.44",
+      "versionRange": "^0.4.43",
+      "additionalData": {}
+    },
+    {
+      "id": "kaleb",
+      "versionRange": "^0.1.9",
       "additionalData": {}
     },
     {

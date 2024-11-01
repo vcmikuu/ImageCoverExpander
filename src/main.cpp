@@ -2,6 +2,7 @@
 
 #include "scotland2/shared/modloader.h"
 
+#include "Settings.hpp"
 #include "custom-types/shared/register.hpp"
 
 #include "GlobalNamespace/StandardLevelDetailViewController.hpp"
@@ -55,21 +56,21 @@ MAKE_HOOK_MATCH(m_DidActivate,
 
 
 
-void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
-    if(firstActivation){
-        // Make Touchable
-        // self->get_gameObject()->AddComponent<HMUI::Touchable*>();
-        UnityW<GameObject> container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
+//void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
+//      if(firstActivation){
+//        // Make Touchable
+//        // self->get_gameObject()->AddComponent<HMUI::Touchable*>();
+//        UnityW<GameObject> container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
 
         // Create Container
         // auto* container = BSML::Lite::CreateScrollableSettingsContainer(self->get_transform());
-        if (firstActivation) {
-            // Add Options
-            AddConfigValueToggle(container->get_transform(), getModConfig().Active);
-        }
-
-    }
-}
+//        if (firstActivation) {
+//            // Add Options
+//            AddConfigValueToggle(container->get_transform(), getModConfig().Active);
+//        }
+//
+//    }
+//}
 
 
 #pragma region Mod setup
@@ -91,7 +92,7 @@ MOD_EXPORT_FUNC void late_load() {
     getModConfig().Init(modInfo);
     BSML::Init();
 
-    BSML::Register::RegisterSettingsMenu("CoverExpander", DidActivate, false);
+    BSML::Register::RegisterMainMenu<ImageCoverExpander::UI::Settings*>("<color=#23ff00>ImageCoverExpander", "Manage settings");
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);

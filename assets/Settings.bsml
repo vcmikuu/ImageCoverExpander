@@ -1,0 +1,24 @@
+<vertical preferred-width="130" pad-top='-0' anchor-min-y="1" child-control-height="false" xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd'>
+  
+    <vertical spacing="2">
+        <vertical spacing="0" child-control-height='false' bg='panel-top' pad='2' pad-bottom='1' pad-top='1' preferred-width='64'>
+            <horizontal spacing="2" child-align="MiddleLeft">
+                <text text="ImageCoverExpander" font-size="4" color="#FFFFFF" align="Left" bold="true"/>
+                <text text="1.2" font-size="3" color="#BBBBBB" align="Right"/>
+            </horizontal>
+        </vertical>
+    </vertical>
+
+    <vertical spacing="2">
+        <vertical spacing="0" child-control-height='false' bg='panel-middle' pad='2' pad-bottom='1' pad-top='1' preferred-width='64'>
+            <bool-setting text="Enabled" value="enabledValue" bind-value="true" apply-on-change="true" on-change="UpdateSettings"/>
+        </vertical>
+    </vertical>
+
+    <vertical spacing="2">
+        <vertical spacing="0" child-control-height='false' bg='panel-bottom' pad='2' pad-bottom='1' pad-top='1' preferred-width='64'>
+            <text text="If you disable it, be sure to restart the game that the changes take effect." font-size="3" color="#FF8888" align="Center"/>
+        </vertical>
+    </vertical>
+
+</vertical>
