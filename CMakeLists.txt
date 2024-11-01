@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
 
-add_compile_options(-DHotReload)
-
-cmake_minimum_required(VERSION 3.21)
-project(${COMPILE_ID})
-include(${EXTERN_DIR}/includes/kaleb/shared/cmake/assets.cmake)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 option(QUEST "Build for quest" ON)
 
 # Globals
@@ -23,8 +15,11 @@ add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
 
 add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC)
 
+add_compile_options(-DHotReload)
 
+cmake_minimum_required(VERSION 3.21)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Include. Include order matters!
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
@@ -59,6 +54,8 @@ project( imagecoverexpander
 
 # Set COMPILE_ID for qpm purposes
 set(COMPILE_ID ${CMAKE_PROJECT_NAME})
+
+include(${EXTERN_DIR}/includes/kaleb/shared/cmake/assets.cmake)
 
 # recursively get all src files
 RECURSE_FILES(cpp_file_list ${SOURCE_DIR}/*.cpp)

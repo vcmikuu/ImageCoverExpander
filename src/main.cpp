@@ -2,7 +2,7 @@
 
 #include "scotland2/shared/modloader.h"
 
-#include "Settings.hpp"
+#include "UI/Settings.hpp"
 #include "custom-types/shared/register.hpp"
 
 #include "GlobalNamespace/StandardLevelDetailViewController.hpp"
@@ -81,7 +81,6 @@ MOD_EXPORT_FUNC void setup(CModInfo& info) {
     info.id = MOD_ID;
     info.version = VERSION;
     modInfo.assign(info);
-    getModConfig().Init(modInfo);
     Logger.info("Completed setup!");
 }
 
@@ -92,11 +91,12 @@ MOD_EXPORT_FUNC void late_load() {
     getModConfig().Init(modInfo);
     BSML::Init();
 
-    BSML::Register::RegisterMainMenu<ImageCoverExpander::UI::Settings*>("<color=#23ff00>ImageCoverExpander", "Manage settings");
+    BSML::Register::RegisterMainMenu<ImageCoverExpander::UI::Settings*>("ImageCoverExpander", "Manage settings", "");
     Logger.info("Installing hooks...");
 
     INSTALL_HOOK(Logger, m_DidActivate);
 
     Logger.info("Installed all hooks!");
+    //<color=#23ff00>
 }
 #pragma endregion

@@ -4,12 +4,12 @@
 #include "UnityEngine/Resources.hpp"
 #include "UnityEngine/Color.hpp"
 #include "bsml/shared/BSML/MainThreadScheduler.hpp"
-#include "main.hpp"
 #include "config.hpp"
 #include "bsml/shared/BSML/SharedCoroutineStarter.hpp"
 #include "bsml/shared/BSML-Lite/Creation/Text.hpp"
 #include "TMPro/TextMeshProUGUI.hpp"
-#include "UI/Formatters.hpp"
+#include "assets.hpp"
+
 
 DEFINE_TYPE(ImageCoverExpander::UI, Settings);
 
@@ -31,12 +31,27 @@ void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool ad
     //#endif
 };
 
-void ImageCoverExpander::UI::Settings::Set_enabledValue(bool value) {
-    if (value) {
-        Logger.info("ImageCoverExpander Set Value True");
-        getModConfig().Active.SetValue(true);
-    } else {
-        Logger.info("ImageCoverExpander Set Value False");
-        getModConfig().Active.SetValue(false);
-    }
+
+void ImageCoverExpander::UI::Settings::UpdateSettings() {
+    //
+}
+
+
+void ImageCoverExpander::UI::Settings::PostParse() {
+    //
+}
+
+bool ImageCoverExpander::UI::Settings::get_enabledValue() {
+    return getModConfig().Active.GetValue();
+}
+
+void ImageCoverExpander::UI::Settings::set_enabledValue(bool value) {
+    return getModConfig().Active.SetValue(value);
+    //if (value) {
+    //    Logger.info("ImageCoverExpander Set Value True");
+    //    getModConfig().Active.SetValue(true);
+    //} else {
+    //    Logger.info("ImageCoverExpander Set Value False");
+    //    getModConfig().Active.SetValue(false);
+    //}
 }

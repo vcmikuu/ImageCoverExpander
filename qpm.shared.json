@@ -199,10 +199,10 @@
     {
       "dependency": {
         "id": "bs-cordl",
-        "versionRange": "=3701.0.0",
+        "versionRange": "=3700.0.0",
         "additionalData": {
           "headersOnly": true,
-          "branchName": "version/v3701_0_0",
+          "branchName": "version/v3700_0_0",
           "compileOptions": {
             "includePaths": [
               "include"
@@ -217,7 +217,7 @@
           }
         }
       },
-      "version": "3701.0.0"
+      "version": "3700.0.0"
     },
     {
       "dependency": {
