@@ -5,14 +5,14 @@
   "id": "${mod_id}",
   "coverImage": "cover.jpg",
   "author": "laynia",
-  "version": "0.1.1",
+  "version": "${version}",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.37.1_9895289101",
+  "packageVersion": "1.40.2_4113",
   "description": "Expands the song artwork to cover the right side of the level select.",
   "dependencies": [],
-  "modFiles": ["${binary}"],
-  "libraryFiles": [
-    "libbeatsaber-hook_5_1_9.so"
+  "modFiles": [
+    "${binary}"
   ],
+  "libraryFiles": [],
   "fileCopies": []
 }

@@ -42,23 +42,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       name: Checkout
       with:
         submodules: true
         lfs: true
 
     - uses: seanmiddleditch/gha-setup-ninja@v3
-
-    # Use canary NDK to avoid lesser known compile bugs
-    - name: Setup canary NDK
-      id: setup-ndk
-      uses: ./.github/actions/canary-ndk
-
-    - name: Create ndkpath.txt
-      run: |
-        echo ${{ steps.setup-ndk.outputs.ndk-path }} > ${GITHUB_WORKSPACE}/ndkpath.txt
-        cat ${GITHUB_WORKSPACE}/ndkpath.txt
 
     # get version from pushed tag
     - name: Extract version
@@ -69,10 +59,11 @@ jobs:
         echo "VERSION=${GITHUB_REF#refs/tags/v}" >> ${GITHUB_OUTPUT}
 
     - name: Setup qpm
-      uses: Fernthedev/qpm-action@main
+      uses: Fernthedev/qpm-action@v1
       with:
         workflow_token: ${{ secrets.GITHUB_TOKEN }}
         restore: true
+        resolve_ndk: true
         cache: true
         publish: false
 
@@ -80,6 +71,8 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}
         qpm s qmod
+      env:
+        GITHUB_WORKFLOW_RUN: "true"
 
     - name: Get Library Name
       id: libname

@@ -70,3 +70,4 @@ extern.cmake
 
 # QMOD Schema
 mod.json.schema
+include/git-info.h
