@@ -84,3 +84,6 @@ target_sources(${COMPILE_ID} PRIVATE ${src_inline_hook_beatsaber_hook_local_extr
 
 add_assets(${COMPILE_ID}-assets STATIC ${CMAKE_CURRENT_LIST_DIR}/assets ${INCLUDE_DIR}/assets.hpp)
 target_link_libraries(${COMPILE_ID} PRIVATE -llog -lz ${COMPILE_ID}-assets)
+
+set(GIT_HEADER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/include/git-info.h)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/git.cmake)
