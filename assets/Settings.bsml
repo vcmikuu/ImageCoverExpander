@@ -9,6 +9,6 @@
     </horizontal>
 
     <horizontal spacing="2" child-align="MiddleLeft" child-control-height="false" bg="panel-bottom" pad="2" pad-bottom="1" pad-top="1" horizontal-fit="PreferredSize">
-        <text text="The game must be restarted for this to take effect." font-size="3" color="#FF8888" align="Center"/>
+        <text text="" font-size="3" align="Center"/>
     </horizontal>
 </vertical>
