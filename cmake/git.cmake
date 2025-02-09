@@ -27,7 +27,12 @@ function(prepare_git_info)
         execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD OUTPUT_VARIABLE GIT_COMMIT_FULL ERROR_QUIET)
         execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0 OUTPUT_VARIABLE GIT_TAG ERROR_QUIET)
         execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --exact --abbrev=0 OUTPUT_VARIABLE GIT_EXACT_TAG ERROR_QUIET)
-        execute_process(COMMAND ${GIT_EXECUTABLE} diff-index --quiet HEAD RESULT_VARIABLE GIT_MODIFIED ERROR_QUIET)
+
+        if("$ENV{GITHUB_WORKFLOW_RUN}" STREQUAL "true")
+            execute_process(COMMAND ${GIT_EXECUTABLE} diff-index --quiet HEAD -- :!qpm.json :!qpm.shared.json :!mod.template.json RESULT_VARIABLE GIT_MODIFIED ERROR_QUIET)
+        else()
+            execute_process(COMMAND ${GIT_EXECUTABLE} diff-index --quiet HEAD RESULT_VARIABLE GIT_MODIFIED ERROR_QUIET)
+        endif()
 
         string(STRIP "${GIT_USER}" GIT_USER)
         string(STRIP "${GIT_BRANCH}" GIT_BRANCH)

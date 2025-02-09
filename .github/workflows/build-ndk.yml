@@ -71,6 +71,8 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}
         qpm s qmod
+      env:
+        GITHUB_WORKFLOW_RUN: "true"
 
     - name: Get Library Name
       id: libname
