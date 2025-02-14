@@ -1,13 +1,14 @@
 // Include necessary headers
-#include "config.hpp"
-#include "Logger.hpp"
 #include "main.hpp"
-#include "UI/Settings.hpp"
 
-#include "beatsaber-hook/shared/utils/hooking.hpp"
+#include "autohooks/shared/hooks.hpp"
 #include "bsml/shared/BSML.hpp"
+#include "config.hpp"
 #include "custom-types/shared/macros.hpp"
+#include "logger.hpp"
+#include "modInfo.hpp"
 #include "scotland2/shared/modloader.h"
+#include "UI/Settings.hpp"
 
 // GlobalNamespace
 #include "GlobalNamespace/StandardLevelDetailViewController.hpp"
@@ -40,21 +41,18 @@ using namespace Helpers;
 #define MOD_ENABLED getModConfig().Active.GetValue()
 
 // Map to store extra widths for different mods
-static std::unordered_map<std::string, float> modExtraWidths = {
-    {"", 2},
-    {"PlaylistManager", 9},
-    {"Replay", 7}
-};
+static std::unordered_map<std::string, float> modExtraWidths = {{"", 2}, {"PlaylistManager", 9}, {"Replay", 7}};
 
 // Hook for the DidActivate method of StandardLevelDetailViewController
-MAKE_HOOK_MATCH(m_DidActivate,
-                &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
-                void,
-                GlobalNamespace::StandardLevelDetailViewController* self,
-                bool firstActivation,
-                bool addedToHeirarchy,
-                bool screenSystemEnabling) {
-
+MAKE_LATE_HOOK_MATCH(
+    m_DidActivate,
+    &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
+    void,
+    GlobalNamespace::StandardLevelDetailViewController* self,
+    bool firstActivation,
+    bool addedToHeirarchy,
+    bool screenSystemEnabling
+) {
     // Call the original DidActivate method
     m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
 
@@ -65,7 +63,7 @@ MAKE_HOOK_MATCH(m_DidActivate,
     }
 
     // Check if the mod is enabled
-    if(MOD_ENABLED) {
+    if (MOD_ENABLED) {
         // Calculate the extra width needed for the image cover
         static float_t extraWidth = []() {
             auto width = modExtraWidths[""];
@@ -80,9 +78,11 @@ MAKE_HOOK_MATCH(m_DidActivate,
         }();
 
         // Calculate the x-axis shift for the image cover
-        static float_t xShift = [](){
+        static float_t xShift = []() {
             auto const modIds = getModIds();
-            if (std::find_if(modIds.begin(), modIds.end(), [](const char* modId) { return std::strcmp(modId, "PlaylistManager") == 0; }) != modIds.end())  {
+            if (std::find_if(modIds.begin(), modIds.end(), [](char const* modId) {
+                    return std::strcmp(modId, "PlaylistManager") == 0;
+                }) != modIds.end()) {
                 return 0.0f;
             }
             return extraWidth / 2.0f;
@@ -97,11 +97,10 @@ MAKE_HOOK_MATCH(m_DidActivate,
         logTransform(imageCoverTransform);
 
         // Shift the song title left to fill where the artwork was
-        for (auto name : {
-            "LevelDetail/LevelBarBig/SingleLineTextContainer",
-            "LevelDetail/LevelBarBig/SongArtwork",
-            "LevelDetail/LevelBarBig/MultipleLineTextContainer"
-        }) {
+        for (auto name :
+             {"LevelDetail/LevelBarBig/SingleLineTextContainer",
+              "LevelDetail/LevelBarBig/SongArtwork",
+              "LevelDetail/LevelBarBig/MultipleLineTextContainer"}) {
             auto transform = self->get_transform()->Find(name)->GetComponent<RectTransform*>();
             if (transform) {
                 logTransform(transform);
@@ -110,14 +109,13 @@ MAKE_HOOK_MATCH(m_DidActivate,
         }
 
         // Shift the various elements right to center them
-        for (auto name : {
-            "LevelDetail/ActionButtons",
-            "LevelDetail/BeatmapCharacteristic",
-            "LevelDetail/BeatmapDifficulty",
-            "LevelDetail/BeatmapParamsPanel",
-            "LevelDetail/LoadingControl",
-            "LevelDetail/ModifierSelection"
-        }) {
+        for (auto name :
+             {"LevelDetail/ActionButtons",
+              "LevelDetail/BeatmapCharacteristic",
+              "LevelDetail/BeatmapDifficulty",
+              "LevelDetail/BeatmapParamsPanel",
+              "LevelDetail/LoadingControl",
+              "LevelDetail/ModifierSelection"}) {
             auto transform = self->get_transform()->Find(name)->GetComponent<RectTransform*>();
             if (transform) {
                 logTransform(transform);
@@ -144,14 +142,11 @@ MAKE_HOOK_MATCH(m_DidActivate,
     }
 }
 
-#pragma region Mod setup
 /// @brief Called at the early stages of game loading
 /// @param info
 /// @return
 MOD_EXPORT_FUNC void setup(CModInfo& info) {
-    info.id = MOD_ID;
-    info.version = VERSION;
-    modInfo.assign(info);
+    info = modInfo.to_c();
     Logger.info("Completed setup!");
 }
 
@@ -164,12 +159,10 @@ MOD_EXPORT_FUNC void late_load() {
 
     // Register the button on the main menu
     BSML::Register::RegisterMainMenu<ImageCoverExpander::UI::Settings*>("Image Cover Expander", "Image Cover Expander", "");
-    Logger.info("Installing hooks...");
 
-    // Install the hook for DidActivate
-    INSTALL_HOOK(Logger, m_DidActivate);
+    // Install the hooks
+    Logger.info("Installing hooks...");
+    INSTALL_LATE_HOOKS();
 
     Logger.info("Installed all hooks!");
-    //<color=#23ff00>
 }
-#pragma endregion

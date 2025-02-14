@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.shared.schema.json",
   "config": {
-    "version": "0.1.1",
+    "version": "0.4.0",
     "sharedDir": "shared",
     "dependenciesDir": "extern",
     "info": {
@@ -22,15 +22,36 @@
         "clean": [
           "pwsh ./scripts/build.ps1 -clean"
         ],
+        "clean-qmod": [
+          "qpm s clean",
+          "qpm s qmod"
+        ],
         "copy": [
           "pwsh ./scripts/copy.ps1 $0:?"
+        ],
+        "deepclean": [
+          "pwsh ./scripts/build.ps1 -clean -skipBuild",
+          "qpm clear"
         ],
         "logcat": [
           "pwsh ./scripts/start-logging.ps1"
         ],
+        "make-hooking": [
+          "pwsh ./common-stuff/scripts/make-hooking.ps1"
+        ],
         "qmod": [
-          "pwsh ./scripts/build.ps1",
-          "pwsh ./scripts/createqmod.ps1"
+          "qpm s build",
+          "qpm s update-version",
+          "qpm qmod zip --skip_build",
+          "qpm s update-version -- -restore"
+        ],
+        "rebuild": [
+          "qpm s deepclean",
+          "qpm s build"
+        ],
+        "rebuild-qmod": [
+          "qpm s deepclean",
+          "qpm s qmod"
         ],
         "restart": [
           "pwsh ./scripts/restart-game.ps1"
@@ -40,6 +61,9 @@
         ],
         "tomb": [
           "pwsh ./scripts/pull-tombstone.ps1"
+        ],
+        "update-version": [
+          "pwsh ./scripts/update-version.ps1 $0:?"
         ]
       },
       "ndk": "^27.2.12479018",
@@ -52,18 +76,8 @@
     },
     "dependencies": [
       {
-        "id": "config-utils",
-        "versionRange": "^2.0.2",
-        "additionalData": {}
-      },
-      {
-        "id": "scotland2",
-        "versionRange": "^0.1.6",
-        "additionalData": {}
-      },
-      {
-        "id": "paper2_scotland2",
-        "versionRange": "^4.5.0",
+        "id": "autohooks",
+        "versionRange": "^0.1.0",
         "additionalData": {}
       },
       {
@@ -72,19 +86,41 @@
         "additionalData": {}
       },
       {
-        "id": "bsml",
-        "versionRange": "=0.4.49",
+        "id": "bs-cordl",
+        "versionRange": "4020.*",
         "additionalData": {}
       },
       {
-        "id": "kaleb",
-        "versionRange": "^0.1.9",
+        "id": "bsml",
+        "versionRange": "^0.4.49",
+        "additionalData": {}
+      },
+      {
+        "id": "config-utils",
+        "versionRange": "^2.0.2",
         "additionalData": {}
       },
       {
         "id": "custom-types",
         "versionRange": "^0.18.2",
         "additionalData": {}
+      },
+      {
+        "id": "mmkay",
+        "versionRange": "^0.1.0",
+        "additionalData": {}
+      },
+      {
+        "id": "paper2_scotland2",
+        "versionRange": "^4.5.0",
+        "additionalData": {}
+      },
+      {
+        "id": "scotland2",
+        "versionRange": "^0.1.6",
+        "additionalData": {
+          "includeQmod": false
+        }
       }
     ]
   },
@@ -159,6 +195,30 @@
     },
     {
       "dependency": {
+        "id": "mmkay",
+        "versionRange": "=0.1.1",
+        "additionalData": {
+          "headersOnly": true,
+          "branchName": "version/v0_1_1"
+        }
+      },
+      "version": "0.1.1"
+    },
+    {
+      "dependency": {
+        "id": "autohooks",
+        "versionRange": "=0.1.1688867040133120",
+        "additionalData": {
+          "headersOnly": true,
+          "overrideSoName": "libautohooks.so",
+          "branchName": "version/v0_1_1688867040133120",
+          "cmake": true
+        }
+      },
+      "version": "0.1.1688867040133120"
+    },
+    {
+      "dependency": {
         "id": "libil2cpp",
         "versionRange": "=0.4.0",
         "additionalData": {
@@ -172,35 +232,6 @@
         }
       },
       "version": "0.4.0"
-    },
-    {
-      "dependency": {
-        "id": "rapidjson-macros",
-        "versionRange": "=2.0.2",
-        "additionalData": {
-          "headersOnly": true,
-          "branchName": "version/v2_0_2",
-          "cmake": false
-        }
-      },
-      "version": "2.0.2"
-    },
-    {
-      "dependency": {
-        "id": "kaleb",
-        "versionRange": "=0.1.9",
-        "additionalData": {
-          "headersOnly": true,
-          "branchName": "version/v0_1_9",
-          "compileOptions": {
-            "cppFlags": [
-              "-DKALEB_VERSION=\"0.1.9\""
-            ]
-          },
-          "cmake": false
-        }
-      },
-      "version": "0.1.9"
     },
     {
       "dependency": {
@@ -228,6 +259,18 @@
     },
     {
       "dependency": {
+        "id": "rapidjson-macros",
+        "versionRange": "=2.0.2",
+        "additionalData": {
+          "headersOnly": true,
+          "branchName": "version/v2_0_2",
+          "cmake": false
+        }
+      },
+      "version": "2.0.2"
+    },
+    {
+      "dependency": {
         "id": "beatsaber-hook",
         "versionRange": "=6.4.0",
         "additionalData": {
@@ -240,25 +283,6 @@
         }
       },
       "version": "6.4.0"
-    },
-    {
-      "dependency": {
-        "id": "fmt",
-        "versionRange": "=11.0.2",
-        "additionalData": {
-          "headersOnly": true,
-          "branchName": "version/v11_0_2",
-          "compileOptions": {
-            "systemIncludes": [
-              "fmt/include/"
-            ],
-            "cppFlags": [
-              "-DFMT_HEADER_ONLY"
-            ]
-          }
-        }
-      },
-      "version": "11.0.2"
     },
     {
       "dependency": {
@@ -287,6 +311,25 @@
         }
       },
       "version": "10.0.0"
+    },
+    {
+      "dependency": {
+        "id": "fmt",
+        "versionRange": "=11.0.2",
+        "additionalData": {
+          "headersOnly": true,
+          "branchName": "version/v11_0_2",
+          "compileOptions": {
+            "systemIncludes": [
+              "fmt/include/"
+            ],
+            "cppFlags": [
+              "-DFMT_HEADER_ONLY"
+            ]
+          }
+        }
+      },
+      "version": "11.0.2"
     }
   ]
 }

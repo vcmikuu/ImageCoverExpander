@@ -8,14 +8,12 @@
         "__aarch64__"
       ],
       "includePath": [
-        "${workspaceFolder}/extern/includes/libil2cpp/il2cpp/libil2cpp", 
-        "${workspaceFolder}/extern/includes/codegen/include", 
-        "${workspaceFolder}/extern/includes", 
-        "${workspaceFolder}/include", 
-        "${workspaceFolder}/shared", 
+        "${workspaceFolder}/extern/includes/libil2cpp/il2cpp/libil2cpp",
+        "${workspaceFolder}/extern/includes/codegen/include",
+        "${workspaceFolder}/extern/includes",
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/shared",
         "${workspaceFolder}",
-        
-        "C:\Users\Mauri\Downloads\android-ndk-r26d-windows\android-ndk-r26d/**",
         "${default}"
       ],
       "name": "Quest",

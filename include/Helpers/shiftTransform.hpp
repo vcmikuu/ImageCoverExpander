@@ -18,4 +18,4 @@ namespace Helpers {
         auto currentPosition = transform->get_localPosition();
         transform->set_localPosition(Vector3(currentPosition.x + shift.x, currentPosition.y + shift.y, currentPosition.z + shift.z));
     }
-}
+}  // namespace Helpers
