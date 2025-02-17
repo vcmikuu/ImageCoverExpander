@@ -1,12 +1,12 @@
-#include "Logger.hpp"
+#include "UI/Settings.hpp"
+
 #include "assets.hpp"
 #include "bsml/shared/BSML.hpp"
 #include "config.hpp"
-#include "UI/Settings.hpp"
 #include "git-info.h"
-#include "Helpers/getMainFlowCoordinator.hpp"
 #include "GlobalNamespace/MainFlowCoordinator.hpp"
 #include "GlobalNamespace/MenuTransitionsHelper.hpp"
+#include "Helpers/getMainFlowCoordinator.hpp"
 
 // Define the Settings type in the ImageCoverExpander::UI namespace
 DEFINE_TYPE(ImageCoverExpander::UI, Settings);
@@ -20,13 +20,13 @@ bool updatedSettings = false;
 bool originalEnabledValue = false;
 
 // Method called when the view is activated
-void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemDisabling)
-{
-    if (!firstActivation)
+void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemDisabling) {
+    if (!firstActivation) {
         return;
+    }
 
     // Parse and construct the settings UI from the BSML file
-    BSML::parse_and_construct(Assets::Settings_bsml, this->get_transform(), this);
+    BSML::parse_and_construct(IncludedAssets::Settings_bsml, this->get_transform(), this);
 
     // Initialize settings state
     updatedSettings = false;
@@ -34,15 +34,14 @@ void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool ad
     versionText->text = GIT_VERSION;
 
     // Uncomment the following lines for hot reload functionality
-    //#ifdef HotReload
+    // #ifdef HotReload
     //    fileWatcher->checkInterval = 0.5f;
     //    fileWatcher->filePath = "/sdcard/bsml/GraphicsTweaks/SettingsView.bsml";
-    //#endif
+    // #endif
 }
 
 // Method called when the settings view is deactivated
-void ImageCoverExpander::UI::Settings::DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
-{
+void ImageCoverExpander::UI::Settings::DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling) {
     if (updatedSettings) {
         auto mfc = GetMainFlowCoordinator();
 

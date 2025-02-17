@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
-  "version": "0.1.1",
+  "version": "0.4.0",
   "sharedDir": "shared",
   "dependenciesDir": "extern",
   "info": {
@@ -21,15 +21,36 @@
       "clean": [
         "pwsh ./scripts/build.ps1 -clean"
       ],
+      "clean-qmod": [
+        "qpm s clean",
+        "qpm s qmod"
+      ],
       "copy": [
         "pwsh ./scripts/copy.ps1 $0:?"
+      ],
+      "deepclean": [
+        "pwsh ./scripts/build.ps1 -clean -skipBuild",
+        "qpm clear"
       ],
       "logcat": [
         "pwsh ./scripts/start-logging.ps1"
       ],
+      "make-hooking": [
+        "pwsh ./common-stuff/scripts/make-hooking.ps1"
+      ],
       "qmod": [
-        "pwsh ./scripts/build.ps1",
-        "pwsh ./scripts/createqmod.ps1"
+        "qpm s build",
+        "qpm s update-version",
+        "qpm qmod zip --skip_build",
+        "qpm s update-version -- -restore"
+      ],
+      "rebuild": [
+        "qpm s deepclean",
+        "qpm s build"
+      ],
+      "rebuild-qmod": [
+        "qpm s deepclean",
+        "qpm s qmod"
       ],
       "restart": [
         "pwsh ./scripts/restart-game.ps1"
@@ -39,6 +60,9 @@
       ],
       "tomb": [
         "pwsh ./scripts/pull-tombstone.ps1"
+      ],
+      "update-version": [
+        "pwsh ./scripts/update-version.ps1 $0:?"
       ]
     },
     "ndk": "^27.2.12479018",
@@ -51,18 +75,8 @@
   },
   "dependencies": [
     {
-      "id": "config-utils",
-      "versionRange": "^2.0.2",
-      "additionalData": {}
-    },
-    {
-      "id": "scotland2",
-      "versionRange": "^0.1.6",
-      "additionalData": {}
-    },
-    {
-      "id": "paper2_scotland2",
-      "versionRange": "^4.5.0",
+      "id": "autohooks",
+      "versionRange": "^0.1.0",
       "additionalData": {}
     },
     {
@@ -71,19 +85,41 @@
       "additionalData": {}
     },
     {
-      "id": "bsml",
-      "versionRange": "=0.4.49",
+      "id": "bs-cordl",
+      "versionRange": "4020.*",
       "additionalData": {}
     },
     {
-      "id": "kaleb",
-      "versionRange": "^0.1.9",
+      "id": "bsml",
+      "versionRange": "^0.4.49",
+      "additionalData": {}
+    },
+    {
+      "id": "config-utils",
+      "versionRange": "^2.0.2",
       "additionalData": {}
     },
     {
       "id": "custom-types",
       "versionRange": "^0.18.2",
       "additionalData": {}
+    },
+    {
+      "id": "mmkay",
+      "versionRange": "^0.1.0",
+      "additionalData": {}
+    },
+    {
+      "id": "paper2_scotland2",
+      "versionRange": "^4.5.0",
+      "additionalData": {}
+    },
+    {
+      "id": "scotland2",
+      "versionRange": "^0.1.6",
+      "additionalData": {
+        "includeQmod": false
+      }
     }
   ]
 }

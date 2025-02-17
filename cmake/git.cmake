@@ -90,7 +90,7 @@ function(prepare_git_info)
 #define GIT_EXACT_TAG \"${GIT_EXACT_TAG}\"
 #define GIT_MODIFIED ${GIT_MODIFIED}
 #define GIT_VERSION \"${GIT_VERSION}\"
-        ")
+")
 
         # only update the header file if the contents have changed
         if(EXISTS ${GIT_HEADER_FILE})

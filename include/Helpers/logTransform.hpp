@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Logger.hpp"
+#include "logger.hpp"
 #include "UnityEngine/RectTransform.hpp"
 #include "UnityEngine/Transform.hpp"
 #include "UnityEngine/Vector2.hpp"
@@ -21,4 +21,4 @@ namespace Helpers {
         Logger.info("{} size: {}, {}", transform->name, currentSize.x, currentSize.y);
         Logger.info("{} position: {}, {}, {}", transform->name, currentPosition.x, currentPosition.y, currentPosition.z);
     }
-}
+}  // namespace Helpers
