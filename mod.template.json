@@ -7,7 +7,7 @@
   "author": "laynia",
   "version": "${version}",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.40.2_4113",
+  "packageVersion": "1.40.3_4614",
   "description": "Expands the song artwork to cover the right side of the level select.",
   "dependencies": [],
   "modFiles": [
