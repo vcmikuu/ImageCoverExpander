@@ -114,9 +114,14 @@ MAKE_LATE_HOOK_MATCH(
               "LevelDetail/BeatmapCharacteristic",
               "LevelDetail/BeatmapDifficulty",
               "LevelDetail/BeatmapParamsPanel",
+              "LevelDetail/BeatmapParamsPanel(Clone)",
               "LevelDetail/LoadingControl",
               "LevelDetail/ModifierSelection"}) {
-            auto transform = self->get_transform()->Find(name)->GetComponent<RectTransform*>();
+            auto component = self->get_transform()->Find(name);
+            if (!component) {
+                continue;
+            }
+            auto transform = component->GetComponent<RectTransform*>();
             if (transform) {
                 logTransform(transform);
                 shiftTransform(transform, Vector3(xShift, 0, 0));
