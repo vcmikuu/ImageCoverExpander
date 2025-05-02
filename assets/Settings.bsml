@@ -1,4 +1,4 @@
-<vertical preferred-width="130" child-control-height="false" vertical-fit="PreferredSize" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd">
+<vertical preferred-width="130" anchor-pos-y="20" child-control-height="false" vertical-fit="PreferredSize" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd">
     <horizontal spacing="2" child-align="MiddleLeft" child-control-height="true" bg="panel-top" pad="4" pad-bottom="1" pad-top="1" horizontal-fit="PreferredSize">
         <text text="ImageCoverExpander" font-size="4" color="#FFFFFF" align="Left" bold="true" preferred-height="4" />
         <text id="versionText" text="" font-size="3" color="#BBBBBB" align="Right" preferred-height="4" />
@@ -14,9 +14,5 @@
 
     <horizontal spacing="2" child-align="MiddleLeft" child-control-height="false" bg="panel-middle" pad="2" pad-bottom="1" pad-top="1" horizontal-fit="PreferredSize">
         <slider-setting text="Opacity" min="0" max="1" increment="0.1" value="opacityValue" bind-value="true" apply-on-change="true" on-change="UpdateSettings" />
-    </horizontal>
-
-    <horizontal spacing="2" child-align="MiddleLeft" child-control-height="false" bg="panel-bottom" pad="2" pad-bottom="1" pad-top="1" horizontal-fit="PreferredSize">
-        <text text="" font-size="3" align="Center"/>
     </horizontal>
 </vertical>
