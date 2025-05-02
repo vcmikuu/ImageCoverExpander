@@ -14,4 +14,6 @@ DECLARE_CLASS_CODEGEN(ImageCoverExpander::UI, Settings, HMUI::ViewController){
     DECLARE_INSTANCE_FIELD(TMPro::TextMeshProUGUI*, versionText);
 
     DECLARE_BSML_PROPERTY(bool, enabledValue);
+    DECLARE_BSML_PROPERTY(float, brightnessValue);
+    DECLARE_BSML_PROPERTY(float, opacityValue);
 };

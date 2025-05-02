@@ -135,7 +135,12 @@ MAKE_LATE_HOOK_MATCH(
 
         // Get the ImageView component of the image cover and set its properties
         auto* imageView = imageCoverTransform->GetComponent<ImageView*>();
-        imageView->set_color(Color(0.5, 0.5, 0.5, 1));
+        imageView->set_color(Color(
+            getModConfig().Brightness.GetValue(),
+            getModConfig().Brightness.GetValue(),
+            getModConfig().Brightness.GetValue(),
+            getModConfig().Opacity.GetValue()
+        ));
         imageView->set_preserveAspect(false);
         imageView->_skew = 0.0f;
 
