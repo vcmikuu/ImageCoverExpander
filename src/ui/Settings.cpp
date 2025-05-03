@@ -18,6 +18,8 @@ using namespace ImageCoverExpander;
 // Global variables to track settings updates and original enabled value
 bool updatedSettings = false;
 bool originalEnabledValue = false;
+float originalBrightnessValue = 0.0;
+float originalOpacityValue = 0.0;
 
 // Method called when the view is activated
 void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemDisabling) {
@@ -31,6 +33,8 @@ void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool ad
     // Initialize settings state
     updatedSettings = false;
     originalEnabledValue = get_enabledValue();
+    originalBrightnessValue = get_brightnessValue();
+    originalOpacityValue = get_opacityValue();
     versionText->text = GIT_VERSION;
 
     // Uncomment the following lines for hot reload functionality
@@ -44,9 +48,13 @@ void ImageCoverExpander::UI::Settings::DidActivate(bool firstActivation, bool ad
 void ImageCoverExpander::UI::Settings::DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling) {
     if (updatedSettings) {
         auto mfc = GetMainFlowCoordinator();
+        if(!mfc) return;
 
         // Restart the game if the enabled value has changed
-        if (mfc && originalEnabledValue != get_enabledValue()) {
+        if (originalEnabledValue != get_enabledValue() ||
+            originalBrightnessValue != get_brightnessValue() ||
+            originalOpacityValue != get_opacityValue()
+        ) {
             mfc->_menuTransitionsHelper->RestartGame(nullptr);
         }
     }
@@ -60,6 +68,30 @@ bool ImageCoverExpander::UI::Settings::get_enabledValue() {
 // Set the enabled value in the mod configuration and mark settings as updated
 void ImageCoverExpander::UI::Settings::set_enabledValue(bool value) {
     getModConfig().Active.SetValue(value);
+
+    updatedSettings = true;
+}
+
+// Get the current brightness value from the mod configuration
+float ImageCoverExpander::UI::Settings::get_brightnessValue() {
+    return getModConfig().Brightness.GetValue();
+}
+
+// Set the brightness value in the mod configuration and mark settings as updated
+void ImageCoverExpander::UI::Settings::set_brightnessValue(float value) {
+    getModConfig().Brightness.SetValue(value);
+
+    updatedSettings = true;
+}
+
+// Get the current opacity value from the mod configuration
+float ImageCoverExpander::UI::Settings::get_opacityValue() {
+    return getModConfig().Opacity.GetValue();
+}
+
+// Set the opacity value in the mod configuration and mark settings as updated
+void ImageCoverExpander::UI::Settings::set_opacityValue(float value) {
+    getModConfig().Opacity.SetValue(value);
 
     updatedSettings = true;
 }
