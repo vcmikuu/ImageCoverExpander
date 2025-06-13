@@ -6,7 +6,7 @@
   "info": {
     "name": "ImageCoverExpander",
     "id": "imagecoverexpander",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "url": null,
     "additionalData": {
       "overrideSoName": "libimagecoverexpander.so",
