@@ -4,6 +4,10 @@
 
 #include "beatsaber-hook/shared/utils/typedefs.h"
 
+#if __has_include("bsml/shared/Helpers/utilities.hpp")
+#include "bsml/shared/Helpers/utilities.hpp"
+#endif
+
 struct IncludedAsset {
     IncludedAsset(uint8_t* start, uint8_t* end) : array(reinterpret_cast<Array<uint8_t>*>(start)) {
         array->klass = nullptr;
@@ -36,7 +40,7 @@ struct IncludedAsset {
     Array<uint8_t>* array;
 };
 
-#define PNG_SPRITE(name) BSML::Utilities::LoadSpriteRaw(static_cast<ArrayW<uint8_t>>(IncludedAssets::name##_png))
+#define PNG_SPRITE(asset) BSML::Utilities::LoadSpriteRaw(static_cast<ArrayW<uint8_t>>(asset))
 
 /**
  * Namespace containing all embedded assets.
