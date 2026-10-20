@@ -2,7 +2,11 @@
 
 #include <string_view>
 
+#if __has_include("beatsaber-hook/shared/utils/typedefs.h")
 #include "beatsaber-hook/shared/utils/typedefs.h"
+#else
+#include "beatsaber-hook/shared/utils.hpp"
+#endif
 
 #if __has_include("bsml/shared/Helpers/utilities.hpp")
 #include "bsml/shared/Helpers/utilities.hpp"
@@ -23,16 +27,28 @@ struct IncludedAsset {
     }
 
     operator std::string_view() const {
+#if __has_include("beatsaber-hook/shared/utils/typedefs.h")
         return {reinterpret_cast<char*>(array->_values), array->get_Length()};
+#else
+        return {reinterpret_cast<char*>(array->_values), array->max_length};
+#endif
     }
 
     operator std::span<uint8_t>() const {
+#if __has_include("beatsaber-hook/shared/utils/typedefs.h")
         return {array->_values, array->get_Length()};
+#else
+        return {array->_values, array->max_length};
+#endif
     }
 
     void init() const {
         if (!array->klass) {
+#if __has_include("beatsaber-hook/shared/utils/typedefs.h")
             array->klass = classof(Array<uint8_t>*);
+#else
+            array->klass = i2c::class_of<Array<uint8_t>*>();
+#endif
         }
     }
 

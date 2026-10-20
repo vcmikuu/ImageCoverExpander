@@ -8,8 +8,8 @@
  */
 inline GlobalNamespace::MainFlowCoordinator* GetMainFlowCoordinator() {
     auto flowCoordinators = UnityEngine::Resources::FindObjectsOfTypeAll<GlobalNamespace::MainFlowCoordinator*>();
-    if (flowCoordinators->get_Length() > 0) {
-        return flowCoordinators.get(0);
+    if (flowCoordinators.size() > 0) {
+        return flowCoordinators[0];
     }
 
     return nullptr;
