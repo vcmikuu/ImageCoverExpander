@@ -163,7 +163,7 @@ MOD_EXPORT_FUNC void setup(CModInfo& info) {
 /// @brief Called later on in the game loading - a good time to install function hooks
 /// @return
 MOD_EXPORT_FUNC void late_load() {
-    il2cpp_functions::Init();
+    i2c::functions::initialize();
     getModConfig().Init(modInfo);
     BSML::Init();
 
